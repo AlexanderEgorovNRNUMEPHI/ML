@@ -11,15 +11,15 @@ def MC(text):
 
 
     for label_type in ['neg', 'pos']:
-        # Get the sub path
+  
         dir_name = os.path.join(train_dir, label_type)
         print('loading ',label_type)
-        # Loop over all files in path
+        
         for fname in tqdm(os.listdir(dir_name)):
             
-            # Only consider text files
+            
             if fname[-4:] == '.txt':
-                # Read the text file and put it in the list
+                
                 f = open(os.path.join(dir_name, fname),encoding="utf-8")
                 name=os.path.splitext(f.name)[0]
                 texts_train.append(f.read())
@@ -160,18 +160,18 @@ def MC(text):
         ('union', FeatureUnion(
             transformer_list=[
 
-                # Pipeline for pulling features from the text
+                
                 ('reviews', Pipeline([
                     ('selector', ItemSelector(key='reviews')),
                     ('tfidf', TfidfVectorizer(preprocessor=clean_text,
                          use_idf=1,smooth_idf=1)),
                 ])),
 
-                # Pipeline for pulling metadata features
+                
                 ('stats', Pipeline([
                     ('selector', ItemSelector(key=['polarity', 'subjectivity', 'lenght','punct%'])),
-                    ('stats', TextStats()),  # returns a list of dicts
-                    ('vect', DictVectorizer()),  # list of dicts -> feature matrix
+                    ('stats', TextStats()),  
+                    ('vect', DictVectorizer()),  
                 ])),
 
             ],
