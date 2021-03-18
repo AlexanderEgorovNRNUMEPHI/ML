@@ -51,6 +51,8 @@ def main():
 
     # создали и загузили dataframe
     dataframe_train = pd.concat([df0, df1], axis=1)
+    dataframe_train=dataframe_train.dropna()
+    dataframe_train=dataframe_train.drop_duplicates()
     dataframe_train.to_pickle("dataframe_train")
 
     dataframe_train.reviews = dataframe_train.reviews.apply(lambda x: preprocess(x))
